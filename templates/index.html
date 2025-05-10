@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Block Tracker</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block title %}Upload CSV – Minecraft Tracker{% endblock %}
+    {% block content %}
+    <div class="w-100" style="max-width: 400px;">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="card-title mb-4">Upload Your CSV</h2>
+          <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <input
+                class="form-control"
+                type="file"
+                name="csv_file"
+                accept=".csv"
+              >
+            </div>
+            <button class="btn btn-primary w-100" type="submit">
+              Analyze Blocks
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

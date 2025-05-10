@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Minecraft Block Tracker{% endblock %}</title>
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-...your-integrity-hash..."
+    crossorigin="anonymous"
+  >
+  <style>
+    body {
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+    }
+    footer {
+      background: #fff;
+    }
+    .block-type { color: teal; }
+    /* Table styling override */
+    .table-custom th {
+      background-color: #343a40;
+      color: #fff;
+    }
+    .table-custom tbody tr:hover {
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand mx-auto" href="{{ url_for('index') }}">
+        🗄️ MC Block Tracker
+      </a>
+    </div>
+  </nav>
+
+  <main class="container d-flex flex-column justify-content-center align-items-center py-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="w-100 mb-3">
+          {% for category, msg in messages %}
+            <div class="alert alert-{{ 'danger' if category=='error' else 'success' }} text-center">
+              {{ msg }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-center py-3 border-top">
+    <small>© {{ current_year }} Minecraft Tracker</small>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-...your-integrity-hash..."
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>
