@@ -55,11 +55,9 @@ def index():
             chests = math.ceil(count / DOUBLE_CHEST_CAPACITY)
             # raw number of stacks
             raw_stacks = count / MAX_STACK_SIZE
-            # if above 1.5 stacks, round up; else show float (2 decimal places)
+            # if above 1.5 stacks, show float (2 decimal places)
             if raw_stacks > 1.5:
-                stacks = math.ceil(raw_stacks)
-            else:
-                stacks = round(raw_stacks, 2)
+                 stacks = round(raw_stacks, 2)
             materials.append((name, count, chests, stacks))
 
         materials.sort(key=lambda x: x[1], reverse=True)
