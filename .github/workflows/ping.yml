@@ -17,7 +17,7 @@ jobs:
         run: |
           STATUS=$(curl --silent --head --fail --show-error \
             --write-out '%{http_code}' \
-            "$APP_URL/health")
+            "$APP_URL/ping")
           if [ "$STATUS" -ne 200 ]; then
             echo "❌ Health check failed: HTTP $STATUS"
             exit 1
