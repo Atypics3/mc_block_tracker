@@ -4,10 +4,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, flash, jsonify
 
 app = Flask(__name__)
 app.secret_key = os.getenv("APP_SECRET_KEY")  # needed for flash()
+
+# /health endpoint
+@app.route("/ping", methods = ["GET"])
+def ping():
+    return jsonify(status="OK"), 200
 
 # constants
 DOUBLE_CHEST_SLOTS    = 54
@@ -56,18 +61,24 @@ def index():
             # raw number of stacks
             raw_stacks = count / MAX_STACK_SIZE
             # if above 1.5 stacks, show float (2 decimal places)
-            if raw_stacks > 1.5:
-                 stacks = round(raw_stacks, 2)
+            # if raw_stacks > 1.5:
+            stacks = round(raw_stacks, 2)
             materials.append((name, count, chests, stacks))
 
         materials.sort(key=lambda x: x[1], reverse=True)
+
+        # materials: (name, count, chests, stacks)
+        total_stacks = sum(m[3] for m in materials)
+        total_chests = math.ceil(total_stacks / DOUBLE_CHEST_SLOTS)
 
         return render_template(
             "results.html",
             materials=materials,
             double_chest_slots=DOUBLE_CHEST_SLOTS,
             max_stack_size=MAX_STACK_SIZE,
-            double_chest_capacity=DOUBLE_CHEST_CAPACITY
+            double_chest_capacity=DOUBLE_CHEST_CAPACITY,
+            total_chests = total_chests,
+            total_stacks = total_stacks
         )
 
     return render_template("index.html")

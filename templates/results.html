@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Results – Minecraft Tracker{% endblock %}
+{% block title %}Results – Minecraft Block Tracker{% endblock %}
 
 {% block content %}
 <!DOCTYPE html>
@@ -23,7 +23,6 @@
           <tr>
             <th>Block Type</th>
             <th>Count</th>
-            <th>Double Chests Needed</th>
             <th>Done</th>
           </tr>
         </thead>
@@ -31,8 +30,7 @@
             {% for name, count, chests, stacks in materials %}
             <tr data-block="{{ name }}">
               <td class="block-type">{{ name }}</td>
-              <td>{{ count }}</td>
-              <td>{{ chests }} ({{ stacks }} stacks)</td>
+              <td>{{ count }} ({{ stacks }} stacks)</td>
               <td>
                 <input type="checkbox" class="done-check" style="transform: scale(1.2);">
               </td>
@@ -42,9 +40,13 @@
       </table>
     </div>
 
-    <div class="alert alert-info" style="text-align: center; padding: 1em;">
-      A double chest ({{ double_chest_slots }} slots × {{ max_stack_size }} blocks per slot)
-      holds <strong>{{ double_chest_capacity }}</strong> blocks.
+    <div class="d-flex justify-content-between mt-3 px-3">
+      <div>
+        <strong>Total stacks:</strong> {{ total_stacks }}
+      </div>
+      <div>
+        <strong>Total double chests needed:</strong> {{ total_chests }}
+      </div>
     </div>
 
     <div style="text-align: center; margin-top: 1em;">
